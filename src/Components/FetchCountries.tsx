@@ -11,22 +11,40 @@ const FetchCountries = () => {
   const [countries, setCountries] = useState<Country[]>();
 
   useEffect(() => {
-    axios
-      .get(`https://restcountries.com/v2/all?fields=name,region,area`)
-      .then(res => {
-        const data: Country[] = res.data;
-        console.log(res);
-        setCountries([
-          ...data
-        ]);
-      })
-      .catch(error => {
-        console.log("error:", error.message);
-      });
+    axios.get(`https://restcountries.com/v2/all?fields=name,region,area`).then(res => {
+      const data: Country[] = res.data;
+      setCountries([...data]);
+    });
   }, []);
 
-  console.log('Rez:', countries);
-  return <h3>Fetching data from API...</h3>;
+  console.log(countries);
+
+  return (
+    <>
+      <h2>Countries list:</h2>
+      <ul className="countries-list">
+        {countries &&
+          countries.map((element: any, i: number) => {
+            return (
+              <li className="countries-list-item" key={i}>
+                <div>
+                  <span>name: </span>
+                  {element.name}
+                </div>
+                <div>
+                  <span>region: </span>
+                  {element.region}
+                </div>
+                <div>
+                  <span>area: </span>
+                  {element.area}
+                </div>
+              </li>
+            );
+          })}
+      </ul>
+    </>
+  );
 };
 
 export default FetchCountries;
