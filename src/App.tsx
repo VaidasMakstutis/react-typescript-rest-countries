@@ -1,5 +1,6 @@
-import React from "react";
-import FetchCountries from "./Components/FetchCountries";
+import React from 'react';
+import FetchCountries from './Components/FetchCountries';
+import '../src/css/index.scss';
 
 const App = () => {
   return (

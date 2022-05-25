@@ -27,17 +27,19 @@ const FetchCountries = () => {
           countries.map((element: any, i: number) => {
             return (
               <li className="countries-list-item" key={i}>
-                <div>
-                  <span>name: </span>
-                  {element.name}
-                </div>
-                <div>
-                  <span>region: </span>
-                  {element.region}
-                </div>
-                <div>
-                  <span>area: </span>
-                  {element.area}
+                <div className="countries-list-item-single">
+                  <div>
+                    <span>name: </span>
+                    {element.name}
+                  </div>
+                  <div>
+                    <span>region: </span>
+                    {element.region}
+                  </div>
+                  <div>
+                    <span>area: </span>
+                    {element.area}
+                  </div>
                 </div>
               </li>
             );
