@@ -1,23 +1,38 @@
 import React, { useState } from "react";
-import { TCountry } from "./FetchCountries";
+import { TCountry } from "../App";
 
-export interface ISortProps {
+interface ISortProps {
   countries: TCountry[];
+  setSortedCountries: React.Dispatch<React.SetStateAction<TCountry[]>>;
 }
 
-const Sort = ({ countries: ISortProps }: { countries: any }) => {
-  const [sortByName, setSortByName] = useState<TCountry[]>();
+const Sort = ({ countries, setSortedCountries }: ISortProps) => {
+  const [sortDesc, setSortDesc] = useState(true);
 
-  const sortDesc = () => {
-    const sortedCountries: [] = ISortProps; // New array for sort
-    sortedCountries.sort((a, b) => 
-      a['name'] > b['name'] ? -1 : 1,
-    );
-    setSortByName([...sortedCountries]);
+  const sortHandler = () => {
+    countries.sort((a, b) => {
+      if (sortDesc) {
+        if (a["name"] < b["name"]) {
+          return 1;
+        }
+        return -1;
+      }
+      if (a["name"] > b["name"]) {
+        return 1;
+      }
+      return -1;
+    });
+    setSortedCountries([...countries]);
+    setSortDesc(!sortDesc);
   };
-  
-  console.log("Sorted by name:", sortByName);
-  return <button onClick={sortDesc}>Sort by name ↓ ↑</button>;
+
+  return (
+    <>
+      <button type="button" onClick={sortHandler}>
+        Sort by name {sortDesc ? "Desc" : "Asc"}
+      </button>
+    </>
+  );
 };
 
 export default Sort;
