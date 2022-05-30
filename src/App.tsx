@@ -3,6 +3,7 @@ import axios from "axios";
 import '../src/css/index.scss';
 import Countries from './Components/Countries';
 import Sort from './Components/Sort';
+import Filter from './Components/Filter';
 
 export interface TCountry {
   name: string;
@@ -27,6 +28,7 @@ const App = () => {
           <h2>Countries list</h2>
           <div className="sort-and-filter-wrapper">
               <div className="sort"><Sort setSortedCountries={setSortedCountries} countries={countries}/></div>
+              <div className="filter"><Filter /></div>
           </div>
       </section>
       <Countries countries={sortedCountries.length ? sortedCountries : countries} />
