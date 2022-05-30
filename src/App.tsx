@@ -21,8 +21,6 @@ const App = () => {
     });
   }, []);
 
-  // console.log("Fetch data:", countries);
-
   return (
     <div className="App">
        <section className="countries-header">

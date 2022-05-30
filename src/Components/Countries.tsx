@@ -5,13 +5,13 @@ const Countries = ({ countries }: {countries: TCountry[]}) => {
   
   return (
     <>
-      <ul className="countries-list">
+      <ul className="countries">
         {
         countries &&
           countries.map((country, i) => {
             return (
-              <li className="countries-list-item" key={i}>
-                <div className="countries-list-item-single">
+              <li className="countries-list" key={i}>
+                <div className="countries-list-item">
                   <div>
                     <span>name: </span>
                     {country.name}
