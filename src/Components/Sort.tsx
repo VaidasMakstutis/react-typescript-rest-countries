@@ -29,7 +29,7 @@ const Sort = ({ countries, setSortedCountries }: ISortProps) => {
   return (
     <>
       <button type="button" onClick={sortHandler}>
-        Sort by name {sortDesc ? "Desc" : "Asc"}
+        Sort by name {sortDesc ? "DESC" : "ASC"}
       </button>
     </>
   );
