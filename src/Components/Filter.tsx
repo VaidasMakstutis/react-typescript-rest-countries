@@ -1,12 +1,32 @@
 import React from "react";
+import { TCountry } from "../App";
 
-const Filter = () => {
+interface IFilterProps {
+  countries: TCountry[];
+  countriesSmallerThanLtu: TCountry[];
+  setCountriesSmallerThanLtu: React.Dispatch<React.SetStateAction<TCountry[]>>;
+}
+
+const Filter = ({ countries, countriesSmallerThanLtu, setCountriesSmallerThanLtu }: IFilterProps) => {
+  
+  const findCountriesSmallerThanLtu = () => {
+    const areaOfLithuania = 65300;
+
+    for (let i = 0; i < countries.length; i++) {
+      if (countries[i].area < areaOfLithuania) {
+        countriesSmallerThanLtu.push(countries[i]);
+      }
+    }
+    setCountriesSmallerThanLtu([...countriesSmallerThanLtu]);
+    // console.log("Countries smaller than Ltu:", countriesSmallerThanLtu);
+  };
+
   return (
-    <select>
-      <option>Select filter...</option>
-      <option>Countries are smaller than Lithuania by area</option>
-      <option>Countries are in Oceania region</option>
-    </select>
+    <div className="filter-options">
+      <label>Filter options:</label>
+      <button onClick={findCountriesSmallerThanLtu}>Countries are smaller than Lithuania</button>
+      <button>Countries are in Oceania</button>
+    </div>
   );
 };
 

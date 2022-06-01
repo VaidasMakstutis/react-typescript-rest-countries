@@ -14,6 +14,8 @@ export interface TCountry {
 const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
   const [sortedCountries, setSortedCountries] = useState<TCountry[]>([]);
+  const [countriesSmallerThanLtu, setCountriesSmallerThanLtu] = useState<TCountry[]>([]);
+  // const [countriesInOceania, setCountriesInOceania] = useState<TCountry[]>([]);
     
   useEffect(() => {
     axios.get(`https://restcountries.com/v2/all?fields=name,region,area`).then(res => {
@@ -22,16 +24,18 @@ const App = () => {
     });
   }, []);
 
+  // console.log(countries);
+
   return (
     <div className="App">
        <section className="countries-header">
           <h2>Countries list</h2>
           <div className="sort-and-filter-wrapper">
               <div className="sort"><Sort setSortedCountries={setSortedCountries} countries={countries}/></div>
-              <div className="filter"><Filter /></div>
+              <div className="filter"><Filter countriesSmallerThanLtu={countriesSmallerThanLtu} setCountriesSmallerThanLtu={setCountriesSmallerThanLtu} countries={countries} /></div>
           </div>
       </section>
-      <Countries countries={sortedCountries.length ? sortedCountries : countries} />
+      <Countries countries={(sortedCountries.length ? sortedCountries : countries) && (countriesSmallerThanLtu.length ? countriesSmallerThanLtu : countries)} />
     </div>
   );
 };
