@@ -15,7 +15,7 @@ const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
   const [sortedCountries, setSortedCountries] = useState<TCountry[]>([]);
   const [countriesSmallerThanLtu, setCountriesSmallerThanLtu] = useState<TCountry[]>([]);
-  // const [countriesInOceania, setCountriesInOceania] = useState<TCountry[]>([]);
+  const [countriesInOceania, setCountriesInOceania] = useState<TCountry[]>([]);
     
   useEffect(() => {
     axios.get(`https://restcountries.com/v2/all?fields=name,region,area`).then(res => {
@@ -31,11 +31,17 @@ const App = () => {
        <section className="countries-header">
           <h2>Countries list</h2>
           <div className="sort-and-filter-wrapper">
-              <div className="sort"><Sort setSortedCountries={setSortedCountries} countries={countries}/></div>
-              <div className="filter"><Filter countriesSmallerThanLtu={countriesSmallerThanLtu} setCountriesSmallerThanLtu={setCountriesSmallerThanLtu} countries={countries} /></div>
+              <div><Sort setSortedCountries={setSortedCountries} countries={countries}/></div>
+              <div><Filter setCountriesSmallerThanLtu={setCountriesSmallerThanLtu} setCountriesInOceania={setCountriesInOceania} countries={countries} /></div>
           </div>
       </section>
-      <Countries countries={(sortedCountries.length ? sortedCountries : countries) && (countriesSmallerThanLtu.length ? countriesSmallerThanLtu : countries)} />
+       <Countries countries={
+                              sortedCountries.length ? sortedCountries
+                              : countriesSmallerThanLtu.length ? countriesSmallerThanLtu
+                              : countriesInOceania.length ? countriesInOceania 
+                              : countries
+                            }
+      />
     </div>
   );
 };
