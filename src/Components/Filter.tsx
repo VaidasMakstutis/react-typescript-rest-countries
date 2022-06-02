@@ -8,13 +8,14 @@ interface IFilterProps {
 }
 
 const Filter = ({ countries, setCountriesSmallerThanLtu, setCountriesInOceania }: IFilterProps) => {
+
   const findCountriesSmallerThanLtu = () => {
     const areaOfLithuania = 65300;
     setCountriesSmallerThanLtu(countries.filter(country => country.area < areaOfLithuania));
   };
 
   const findCountriesInOceania = () => {
-    setCountriesInOceania(countries.filter(country => (country.region = "Oceania")));
+    setCountriesInOceania(countries.filter(country => country.region === "Oceania"));
   };
 
   return (
