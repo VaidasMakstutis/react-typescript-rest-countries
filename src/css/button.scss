@@ -1,5 +1,6 @@
 button {
     cursor: pointer;
+    margin: 0 5px;
     padding: 8px;
     background-color: rgb(143, 255, 143);
     border-radius: 5%;
@@ -7,5 +8,8 @@ button {
     outline: none;
     &:hover {
         background-color:orange;
+    }
+    &.active {
+        background-color: orange;
     }
 }
