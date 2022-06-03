@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react';
-import axios from "axios";
+import React, { useState, useEffect, useRef} from 'react';
+import axios from 'axios';
 import '../src/css/index.scss';
 import Countries from './Components/Countries';
 import Sort from './Components/Sort';
@@ -13,9 +13,12 @@ export interface TCountry {
 
 const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
-  const [sortedCountries, setSortedCountries] = useState<TCountry[]>([]);
-  const [countriesSmallerThanLtu, setCountriesSmallerThanLtu] = useState<TCountry[]>([]);
-  const [countriesInOceania, setCountriesInOceania] = useState<TCountry[]>([]);
+  const [showCountries, setShowCountries] = useState<TCountry[]>([]);
+  const [activeButton, setActiveButton] = useState("");
+
+  const sortRef = useRef<HTMLButtonElement | null>(null);
+  const areaRef = useRef<HTMLButtonElement | null>(null);
+  const regionRef = useRef<HTMLButtonElement | null>(null);
     
   useEffect(() => {
     axios.get(`https://restcountries.com/v2/all?fields=name,region,area`).then(res => {
@@ -24,24 +27,29 @@ const App = () => {
     });
   }, []);
 
-  // console.log(countries);
+  useEffect(() => {
+    if(sortRef.current) {
+      sortRef.current.className = sortRef.current.id === activeButton ? "active" : "";
+    }
+    if(areaRef.current) {
+      areaRef.current.className = areaRef.current.id === activeButton ? "active" : "";
+    }
+    if(regionRef.current) {
+      regionRef.current.className = regionRef.current.id === activeButton ? "active" : "";
+    }
+  }, [activeButton]);
+
 
   return (
     <div className="App">
        <section className="countries-header">
           <h2>Countries list</h2>
           <div className="sort-and-filter-wrapper">
-              <div><Sort setSortedCountries={setSortedCountries} countries={countries}/></div>
-              <div><Filter setCountriesSmallerThanLtu={setCountriesSmallerThanLtu} setCountriesInOceania={setCountriesInOceania} countries={countries} /></div>
+              <div><Sort sortRef={sortRef} setShowCountries={setShowCountries} countries={countries} activeButton={activeButton} setActiveButton={setActiveButton} /></div>
+              <div><Filter areaRef={areaRef} regionRef={regionRef} setShowCountries={setShowCountries} countries={countries} activeButton={activeButton} setActiveButton={setActiveButton} /></div>
           </div>
       </section>
-       <Countries countries={
-                              sortedCountries.length ? sortedCountries
-                              : countriesSmallerThanLtu.length ? countriesSmallerThanLtu
-                              : countriesInOceania.length ? countriesInOceania 
-                              : countries
-                            }
-      />
+       <Countries countries={showCountries.length ? showCountries : countries} />
     </div>
   );
 };

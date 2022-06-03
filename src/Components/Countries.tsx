@@ -1,5 +1,5 @@
-import React from "react";
-import { TCountry } from "../App";
+import React from 'react';
+import { TCountry } from '../App';
 
 const Countries = ({ countries }: {countries: TCountry[]}) => {
   
