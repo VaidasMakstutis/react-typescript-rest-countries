@@ -9,4 +9,7 @@ button {
     &:hover {
         background-color:orange;
     }
+    &.active {
+        background-color: orange;
+    }
 }
