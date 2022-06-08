@@ -1,0 +1,27 @@
+@media only screen and (max-width: 750px) {
+  .countries-header {
+    text-align: center;
+    .sort-and-filter-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      div {
+        display: block;
+        button {
+          margin-bottom: 25px;
+        }
+        .filter-options {
+          display: block;
+          label {
+            display: block;
+            margin-bottom: 10px;
+          }
+          button {
+            margin: 10px 0;
+          }
+        }
+      }
+    }
+  }
+}
