@@ -3,6 +3,7 @@ import axios from "axios";
 import Countries from "./Components/Countries";
 import Sort from "./Components/Sort";
 import Filter from "./Components/Filter";
+import Pagination from "./Components/Pagination";
 
 export interface TCountry {
   name: string;
@@ -14,6 +15,8 @@ const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
   const [showCountries, setShowCountries] = useState<TCountry[]>([]);
   const [activeButton, setActiveButton] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage] = useState(20);
 
   const sortRef = useRef<HTMLButtonElement | null>(null);
   const areaRef = useRef<HTMLButtonElement | null>(null);
@@ -38,6 +41,15 @@ const App = () => {
     }
   }, [activeButton]);
 
+  // Get current countries
+
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indextOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = countries.slice(indextOfFirstCountry, indexOfLastCountry);
+
+  // Change page
+  const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
+
   return (
     <div className="App">
       <section className="countries-header">
@@ -47,7 +59,7 @@ const App = () => {
             <Sort
               sortRef={sortRef}
               setShowCountries={setShowCountries}
-              countries={countries}
+              currentCountries={currentCountries}
               activeButton={activeButton}
               setActiveButton={setActiveButton}
             />
@@ -57,14 +69,15 @@ const App = () => {
               areaRef={areaRef}
               regionRef={regionRef}
               setShowCountries={setShowCountries}
-              countries={countries}
+              currentCountries={currentCountries}
               activeButton={activeButton}
               setActiveButton={setActiveButton}
             />
           </div>
         </div>
       </section>
-      <Countries countries={showCountries.length ? showCountries : countries} />
+      <Countries countries={showCountries.length ? showCountries : currentCountries} />
+      <Pagination countriesPerPage={countriesPerPage} totalCountries={countries.length} paginate={paginate} />
     </div>
   );
 };

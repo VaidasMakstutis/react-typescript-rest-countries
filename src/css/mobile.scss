@@ -1,4 +1,7 @@
 @media only screen and (max-width: 750px) {
+  .countries {
+    padding: 0;
+  }
   .countries-header {
     text-align: center;
     .sort-and-filter-wrapper {
@@ -12,7 +15,8 @@
           margin-bottom: 25px;
         }
         .filter-options {
-          display: block;
+          display: flex;
+          flex-direction: column;
           label {
             display: block;
             margin-bottom: 10px;
@@ -23,5 +27,12 @@
         }
       }
     }
+  }
+  .countries-list {
+    text-align: center;
+  }
+  nav .pagination {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
