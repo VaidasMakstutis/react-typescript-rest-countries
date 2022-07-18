@@ -2,7 +2,7 @@ import React from "react";
 import { TCountry } from "../App";
 
 interface IFilterProps {
-  currentCountries: TCountry[];
+  countries: TCountry[];
   areaRef: React.MutableRefObject<HTMLButtonElement | null>;
   regionRef: React.MutableRefObject<HTMLButtonElement | null>;
   activeButton: string;
@@ -10,15 +10,15 @@ interface IFilterProps {
   setShowCountries: React.Dispatch<React.SetStateAction<TCountry[]>>;
 }
 
-const Filter = ({ currentCountries, areaRef, regionRef, activeButton, setActiveButton, setShowCountries }: IFilterProps) => {
+const Filter = ({ countries, areaRef, regionRef, activeButton, setActiveButton, setShowCountries }: IFilterProps) => {
   const findCountriesSmallerThanLtu = () => {
     const areaOfLithuania = 65300;
-    setShowCountries(currentCountries.filter(country => country.area < areaOfLithuania));
+    setShowCountries(countries.filter(country => country.area < areaOfLithuania));
     setActiveButton(areaRef?.current?.id || "");
   };
 
   const findCountriesInOceania = () => {
-    setShowCountries(currentCountries.filter(country => country.region === "Oceania"));
+    setShowCountries(countries.filter(country => country.region === "Oceania"));
     setActiveButton(regionRef?.current?.id || "");
   };
 

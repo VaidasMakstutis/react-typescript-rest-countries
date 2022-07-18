@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { TCountry } from "../App";
 
 interface ISortProps {
-  currentCountries: TCountry[];
+  countries: TCountry[];
   sortRef: React.MutableRefObject<HTMLButtonElement | null>;
   activeButton: string;
   setActiveButton: React.Dispatch<React.SetStateAction<string>>;
   setShowCountries: React.Dispatch<React.SetStateAction<TCountry[]>>;
 }
 
-const Sort = ({ currentCountries, sortRef, activeButton, setActiveButton, setShowCountries }: ISortProps) => {
+const Sort = ({ countries, sortRef, activeButton, setActiveButton, setShowCountries }: ISortProps) => {
   const [sortDesc, setSortDesc] = useState(true);
 
   const sortHandler = () => {
-    currentCountries.sort((a, b) => {
+    countries.sort((a, b) => {
       if (sortDesc) {
         if (a["name"] < b["name"]) {
           return 1;
@@ -26,7 +26,7 @@ const Sort = ({ currentCountries, sortRef, activeButton, setActiveButton, setSho
       return -1;
     });
     setActiveButton(sortRef?.current?.id || "");
-    setShowCountries([...currentCountries]);
+    setShowCountries([...countries]);
     setSortDesc(!sortDesc);
   };
 
