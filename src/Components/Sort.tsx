@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TCountry } from '../App';
+import React, { useState } from "react";
+import { TCountry } from "../App";
 
 interface ISortProps {
   countries: TCountry[];
@@ -12,7 +12,7 @@ interface ISortProps {
 const Sort = ({ countries, sortRef, activeButton, setActiveButton, setShowCountries }: ISortProps) => {
   const [sortDesc, setSortDesc] = useState(true);
 
-    const sortHandler = () => {
+  const sortHandler = () => {
     countries.sort((a, b) => {
       if (sortDesc) {
         if (a["name"] < b["name"]) {
@@ -25,7 +25,7 @@ const Sort = ({ countries, sortRef, activeButton, setActiveButton, setShowCountr
       }
       return -1;
     });
-    setActiveButton(sortRef?.current?.id  || "");
+    setActiveButton(sortRef?.current?.id || "");
     setShowCountries([...countries]);
     setSortDesc(!sortDesc);
   };

@@ -1,13 +1,21 @@
-import React from 'react';
-import { TCountry } from '../App';
+import React from "react";
+import { TCountry } from "../App";
+import Loader from "./Loader";
 
-const Countries = ({ countries }: {countries: TCountry[]}) => {
-  
+interface ILoadingProps {
+  countries: TCountry[];
+  loading: boolean;
+}
+
+const Countries = ({ countries, loading }: ILoadingProps) => {
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <ul className="countries">
-        {
-        countries &&
+        {countries &&
           countries.map((country, i) => {
             return (
               <li className="countries-list" key={i}>
@@ -27,8 +35,7 @@ const Countries = ({ countries }: {countries: TCountry[]}) => {
                 </div>
               </li>
             );
-          })
-          }
+          })}
       </ul>
     </>
   );
