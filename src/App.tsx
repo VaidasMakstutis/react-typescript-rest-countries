@@ -15,6 +15,7 @@ const App = () => {
   const [countries, setCountries] = useState<TCountry[]>([]);
   const [showCountries, setShowCountries] = useState<TCountry[]>([]);
   const [activeButton, setActiveButton] = useState("");
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(20);
 
@@ -23,10 +24,14 @@ const App = () => {
   const regionRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    axios.get(`https://restcountries.com/v2/all?fields=name,region,area`).then(res => {
+    const fetchCountries = async () => {
+      setLoading(true);
+      const res = await axios.get(`https://restcountries.com/v2/all?fields=name,region,area`);
       const data: TCountry[] = res.data;
       setCountries([...data]);
-    });
+      setLoading(false);
+    };
+    fetchCountries();
   }, []);
 
   useEffect(() => {
@@ -42,7 +47,6 @@ const App = () => {
   }, [activeButton]);
 
   // Get current countries
-
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indextOfFirstCountry = indexOfLastCountry - countriesPerPage;
   const currentCountries = countries.slice(indextOfFirstCountry, indexOfLastCountry);
@@ -59,7 +63,7 @@ const App = () => {
             <Sort
               sortRef={sortRef}
               setShowCountries={setShowCountries}
-              currentCountries={currentCountries}
+              countries={currentCountries}
               activeButton={activeButton}
               setActiveButton={setActiveButton}
             />
@@ -69,14 +73,14 @@ const App = () => {
               areaRef={areaRef}
               regionRef={regionRef}
               setShowCountries={setShowCountries}
-              currentCountries={currentCountries}
+              countries={currentCountries}
               activeButton={activeButton}
               setActiveButton={setActiveButton}
             />
           </div>
         </div>
       </section>
-      <Countries countries={showCountries.length ? showCountries : currentCountries} />
+      <Countries countries={showCountries.length ? showCountries : currentCountries} loading={loading} />
       <Pagination countriesPerPage={countriesPerPage} totalCountries={countries.length} paginate={paginate} />
     </div>
   );

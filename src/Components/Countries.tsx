@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TCountry } from "../App";
 import Loader from "./Loader";
 
-const Countries = ({ countries }: { countries: TCountry[] }) => {
-  const [loading, setLoading] = useState(false);
+interface ILoadingProps {
+  countries: TCountry[];
+  loading: boolean;
+}
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
+const Countries = ({ countries, loading }: ILoadingProps) => {
   if (loading) {
     return <Loader />;
   }
