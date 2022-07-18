@@ -5,11 +5,11 @@ region, and area size. (Use https://restcountries.com/v2/all?fields=name,region,
 
 - Fetch the data from the endpoint
 - Display a list for the data
+- Pagination
 - Make the list sortable alphabetically by name (ascending, descending)
 - Implement a filter(s) that filters countries:
-    - That are smaller than Lithuania by area
-    - That are in “Oceania” region
-
+  - That are smaller than Lithuania by area
+  - That are in “Oceania” region
 
 ## Technology stack
 
@@ -17,12 +17,11 @@ region, and area size. (Use https://restcountries.com/v2/all?fields=name,region,
 - TypeScript
 - Node-sass
 - Axios
-
+- Bootstrap
 
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 
 ## Available Scripts
 
